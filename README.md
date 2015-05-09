@@ -10,7 +10,7 @@ Features:
 
 # How to build this image
 
-    docker build -t troy/openvpn .
+    docker build -t troyc/openvpn .
 
 # How to use this image
 
@@ -25,7 +25,7 @@ You must use the `--cap-add=NET_ADMIN` and `--device /dev/net/tun` options.
 Copy your vpn.conf (and certificate file, if separate) to /some/path
 
     docker run --cap-add=NET_ADMIN --device /dev/net/tun --name openvpn
-                -v /some/path:/vpn:/vpn -d troy/openvpn
+                -v /some/path:/vpn:/vpn -d troyc/openvpn
 
 Once it's up other containers can be started using it's network connection:
 
@@ -45,5 +45,5 @@ If your certificate is not embedded, place it in /some/path/some_cert_file
 and reference /vpn/some_cert_file in your vpn.conf.
 
     docker run --cap-add=NET_ADMIN --device /dev/net/tun --name openvpn \
-                -v /some/path:/vpn -d troy/openvpn 
+                -v /some/path:/vpn -d troyc/openvpn 
 
