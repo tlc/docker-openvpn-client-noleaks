@@ -1,7 +1,7 @@
 
 # OpenVPN
 
-Yet another OpenVPN client docker container
+Yet another OpenVPN client docker container.
 
 Features:
  * For use by other containers with --net=container:openvpn.
@@ -22,7 +22,7 @@ You must use the `--cap-add=NET_ADMIN` and `--device /dev/net/tun` options.
 
 ## Hosting an OpenVPN client instance
 
-    copy your vpn.conf (and certificate file, if separate) to /some/path
+Copy your vpn.conf (and certificate file, if separate) to /some/path
 
     docker run --cap-add=NET_ADMIN --device /dev/net/tun --name openvpn
                 -v /some/path:/vpn:/vpn -d troy/openvpn
@@ -33,7 +33,7 @@ Once it's up other containers can be started using it's network connection:
 
 ### Timezone
 
-    If you care about the times shown in the logs you can use
+If you care about the times shown in the logs you can use
 
             -v /etc/timezone:/etc/timezone:ro
 
