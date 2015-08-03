@@ -25,21 +25,21 @@ You must use the `--cap-add=NET_ADMIN` and `--device /dev/net/tun` options.
 Copy your vpn.conf (and certificate file, if separate) to /some/path
 
     docker run --cap-add=NET_ADMIN --device /dev/net/tun --name openvpn
-                -v /some/path:/vpn:/vpn -d troyc/openvpn
+                -v /some/path:/vpn -d troyc/openvpn
 
-Once it's up other containers can be started using it's network connection:
+Once it's up, other containers can be started using it's network connection:
 
     docker run --net=container:openvpn -d some/docker-container
 
 ### Timezone
 
-If you care about the times shown in the logs you can use
+If you care about the times shown in the logs, you can use
 
             -v /etc/timezone:/etc/timezone:ro
 
 ### VPN configuration
 
-In order to work you must provide a VPN configuration and certificate.
+You must provide a VPN configuration and certificate.
 Put your VPN configuration in /some/path/vpn.conf.
 If your certificate is not embedded, place it in `/some/path/some_cert_file`
 and reference `some_cert_file` in your `vpn.conf`.
