@@ -41,8 +41,8 @@ If you care about the times shown in the logs you can use
 
 In order to work you must provide a VPN configuration and certificate.
 Put your VPN configuration in /some/path/vpn.conf.
-If your certificate is not embedded, place it in /some/path/some_cert_file
-and reference /vpn/some_cert_file in your vpn.conf.
+If your certificate is not embedded, place it in `/some/path/some_cert_file`
+and reference `some_cert_file` in your `vpn.conf`.
 
     docker run --cap-add=NET_ADMIN --device /dev/net/tun --name openvpn \
                 -v /some/path:/vpn -d troyc/openvpn 

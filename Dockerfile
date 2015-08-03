@@ -12,4 +12,4 @@ COPY bin/update-resolv-conf /etc/openvpn/
 
 VOLUME ["/vpn"]
 
-ENTRYPOINT [ "openvpn", "--config", "/vpn/vpn.conf", "--script-security", "2", "--up", "/etc/openvpn/update-resolv-conf", "--down", "/etc/openvpn/update-resolv-conf" ]
+ENTRYPOINT [ "openvpn", "--cd", "/vpn", "--config", "/vpn/vpn.conf", "--script-security", "2", "--up", "/etc/openvpn/update-resolv-conf", "--down", "/etc/openvpn/update-resolv-conf" ]
