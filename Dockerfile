@@ -1,15 +1,10 @@
-FROM ubuntu:14.04
+FROM alpine:3.3
 MAINTAINER Troy Cauble <troycauble@gmail.com>
 
-RUN export DEBIAN_FRONTEND='noninteractive' && \
-    apt-get update -qq && \
-    apt-get install -qqy --no-install-recommends openvpn \
-                $(apt-get -s dist-upgrade|awk '/^Inst.*ecurity/ {print $2}') &&\
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/*
+RUN apk add --update openvpn && rm -rf /var/cache/apk/*
 
-COPY bin/update-resolv-conf /etc/openvpn/
-
+COPY up2.sh /etc/openvpn/
 VOLUME ["/vpn"]
 
-ENTRYPOINT [ "openvpn", "--cd", "/vpn", "--config", "/vpn/vpn.conf", "--script-security", "2", "--up", "/etc/openvpn/update-resolv-conf", "--down", "/etc/openvpn/update-resolv-conf" ]
+
+ENTRYPOINT [ "openvpn", "--cd", "/vpn", "--config", "vpn.conf", "--up-delay", "--up-restart", "--script-security", "2", "--up", "/etc/openvpn/up2.sh", "--down-pre", "--down", "/etc/openvpn/down.sh" ]
