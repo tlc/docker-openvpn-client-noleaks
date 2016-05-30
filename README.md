@@ -10,40 +10,33 @@ Features:
 
 # How to build this image
 
-    docker build -t troyc/openvpn .
+You can skip this and pull straight from the docker registry if you like.
+
+    docker build -t troyc/openvpn-client-noleaks .
 
 # How to use this image
-
-This OpenVPN container was designed to be started first to provide a connection
-to other containers (using `--net=container:openvpn`, see below).
 
 **NOTE**: OpenVPN requires certain privileges.
 You must use the `--cap-add=NET_ADMIN` and `--device /dev/net/tun` options.
 
-## Hosting an OpenVPN client instance
+You must provide a VPN configuration and certificate.
+Put your VPN configuration in /some/path/vpn.conf.
+If your certificate is not embedded, place it in `/some/path/cert_file`
+and reference `cert_file` in your `vpn.conf`.
 
-Copy your vpn.conf (and certificate file, if separate) to /some/path
-
-    docker run --cap-add=NET_ADMIN --device /dev/net/tun --name openvpn
-                -v /some/path:/vpn -d troyc/openvpn
-
-Once it's up, other containers can be started using it's network connection:
-
-    docker run --net=container:openvpn -d some/docker-container
+    docker run --cap-add=NET_ADMIN --device /dev/net/tun --name openvpn \
+                -v /some/path:/vpn -d troyc/openvpn-client-noleaks 
 
 ### Timezone
 
-If you care about the times shown in the logs, you can use
+If you care about the times shown in the logs, you can add
 
             -v /etc/timezone:/etc/timezone:ro
 
-### VPN configuration
+# Use by Other Containers
 
-You must provide a VPN configuration and certificate.
-Put your VPN configuration in /some/path/vpn.conf.
-If your certificate is not embedded, place it in `/some/path/some_cert_file`
-and reference `some_cert_file` in your `vpn.conf`.
+Once it's up, other containers can be started using this container's network connection:
 
-    docker run --cap-add=NET_ADMIN --device /dev/net/tun --name openvpn \
-                -v /some/path:/vpn -d troyc/openvpn 
+    docker run --net=container:openvpn -d some/docker-container
+
 
